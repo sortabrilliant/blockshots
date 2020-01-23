@@ -19,7 +19,7 @@ class BlockShotPlugin extends Component {
 			<Fragment>
 				<PluginBlockSettingsMenuItem
 					icon="camera"
-					label="Take a Screenshot"
+					label="Take a BlockShot"
 					onClick={ () => captureBlock( blockId, blockName ) }
 				/>
 			</Fragment>
