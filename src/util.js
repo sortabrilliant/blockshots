@@ -2,23 +2,19 @@
  * External dependencies
  */
 import { kebabCase } from 'lodash';
-import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image-more';
 
 /**
  * Download a PNG.
  *
- * @param {string} canvas Canvas element
+ * @param {string} dataUrl Canvas element
  * @param {string} filename File name
  */
-function download( canvas, filename ) {
+function download( dataUrl, filename ) {
 	const a = document.createElement( 'a' );
 
 	a.download = filename;
-
-	// Convert canvas content to data-uri for link. When download
-	// attribute is set the content pointed to by link will be
-	// pushed as "download" in HTML5 capable browsers
-	a.href = canvas.toDataURL( 'image/png;base64' );
+	a.href = dataUrl;
 
 	a.style.display = 'none';
 	document.body.appendChild( a );
@@ -35,8 +31,14 @@ function download( canvas, filename ) {
 export function captureBlock( id, name ) {
 	const filename = kebabCase( name ) + '-screenshot';
 	const block = document.querySelector( `[data-block="${ id }"]` );
+	const options = {
+		bgcolor: '#ffffff',
+	};
 
-	html2canvas( block ).then( ( canvas ) => {
-		download( canvas, filename );
+	domtoimage.toPng( block, options ).then( ( dataUrl ) => {
+		download( dataUrl, filename );
+	} ).catch( ( error ) => {
+		// eslint-disable-next-line no-console
+		console.error( 'Oops, something went wrong!', error );
 	} );
 }

@@ -23,6 +23,6 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^6.1.1",
-		"html2canvas": "^1.0.0-alpha.12"
+		"dom-to-image-more": "^2.8.0"
 	}
 }
