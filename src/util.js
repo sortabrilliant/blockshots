@@ -36,16 +36,15 @@ export function captureBlock( id, name ) {
 	const filename = kebabCase( name ) + '-screenshot';
 	const block = document.querySelector( `[data-block="${ id }"]` );
 
-	// Remove some styles before creating canvas.
-	const options = {
-		onclone: ( document ) => {
-			document.getElementById( `block-${ id }` )
-				.classList
-				.remove( 'has-child-selected' );
-		},
-	};
+	// Hack: Temporarely override styles.
+	const style = document.createElement( 'style' );
+	document.head.appendChild( style );
+	style.sheet.insertRule( `#block-${ id } *::before { border: none; }`, 0 );
 
-	html2canvas( block, options ).then( ( canvas ) => {
+	html2canvas( block ).then( ( canvas ) => {
 		download( canvas, filename );
+
+		// Remove custom style.
+		document.head.removeChild( style );
 	} );
 }
