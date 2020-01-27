@@ -36,7 +36,16 @@ export function captureBlock( id, name ) {
 	const filename = kebabCase( name ) + '-screenshot';
 	const block = document.querySelector( `[data-block="${ id }"]` );
 
-	html2canvas( block ).then( ( canvas ) => {
+	// Remove some styles before creating canvas.
+	const options = {
+		onclone: ( document ) => {
+			document.getElementById( `block-${ id }` )
+				.classList
+				.remove( 'has-child-selected' );
+		},
+	};
+
+	html2canvas( block, options ).then( ( canvas ) => {
 		download( canvas, filename );
 	} );
 }
