@@ -1,7 +1,5 @@
 # Block Shots
-The easiest way to make screenshots of your blocks.
 
-== Description ==
 What if I told you that you could take a screenshot of individual blocks (or multiple blocks if you group them) with just the click of the mouse?
 
 You can with blockshots.
