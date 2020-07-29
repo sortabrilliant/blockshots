@@ -1,13 +1,15 @@
 <?php
 /**
- * Plugin Name: Block Shots
- * Plugin URI:  https://sortabrilliant.com/blockshots/
- * Description: The easiest way to take screenshots of your blocks.
- * Author:      sorta brilliant
- * Author URI:  https://sortabrilliant.com/
- * Version:     1.0.1
- * License:     GPL-2.0-or-later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Plugin Name:       Block Shots
+ * Plugin URI:        https://sortabrilliant.com/blockshots/
+ * Description:       The easiest way to take screenshots of your blocks.
+ * Version:           1.0.2
+ * Requires at least: 5.0
+ * Requires PHP:      5.6
+ * Author:            sorta brilliant
+ * Author URI:        https://sortabrilliant.com/
+ * License:           GPL-2.0-or-later
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  *
  * @package BlockShots
  */
@@ -20,7 +22,11 @@ namespace SortaBrilliant\BlockShots;
  * @return void
  */
 function enqueue_assets() {
-	$asset_file = include __DIR__ . '/build/index.asset.php';
+	$asset_filepath = __DIR__ . '/build/index.asset.php';
+	$asset_file     = file_exists( $asset_filepath ) ? include $asset_filepath : [
+		'dependencies' => [],
+		'version'      => false,
+	];
 
 	wp_enqueue_script(
 		'block-shots',
